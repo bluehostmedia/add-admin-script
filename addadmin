@@ -1,0 +1,24 @@
+<?php
+
+require_once('wp-blog-header.php');
+require_once('wp-includes/registration.php');
+$newusername = 'newusername';
+$newpassword = 'newpass';
+$newemail = 'your@email.com';
+if ( !username_exists($newusername) && !email_exists($newemail) )
+{
+ $user_id = wp_create_user( $newusername, $newpassword, $newemail);
+ if ( is_int($user_id) )
+ {
+  $wp_user_object = new WP_User($user_id);
+  $wp_user_object->set_role('administrator');
+  echo 'Your emergency user and pass is working Delete this  .php file!';
+ }
+ else {
+  echo 'Error we were not able to create new user';
+ }
+}
+else {
+ echo 'This email is registered yet.';
+}
+?>
